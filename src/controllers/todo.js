@@ -62,7 +62,6 @@ export default class TodoController {
       const { item, completed } = req.body;
       const data = {
         item,
-        description,
         completed
       };
       console.log("output data", data);
