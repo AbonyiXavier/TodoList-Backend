@@ -5,9 +5,9 @@ const todoValidation = data => {
     item: Joi.string()
       .trim()
       .required(),
-    description: Joi.string()
-      .trim()
-      .required(),
+    // description: Joi.string()
+    //   .trim()
+    //   .required(),
     completed: Joi.number()
       .integer()
       .max(1)

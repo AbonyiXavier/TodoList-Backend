@@ -5,7 +5,7 @@ export default class TodoController {
     try {
       // const { item, description, completed } = req.body;
       let item = req.body.item;
-      let description = req.body.description;
+      // let description = req.body.description;
       let completed = req.body.completed;
       // const data = {
       //   item,
@@ -17,11 +17,9 @@ export default class TodoController {
         return res.status(400).send(error.details[0].message);
       }
       const addTodoItem =
-        "INSERT INTO todo (item, description, completed) VALUES ('" +
+        "INSERT INTO todo (item, completed) VALUES ('" +
         item +
-        "', '" +
-        description +
-        "', '" +
+        "',  '" +
         completed +
         "')";
       const result = await dbConnection.query(addTodoItem);
@@ -61,7 +59,7 @@ export default class TodoController {
   static async updateTodo(req, res) {
     try {
       const todoId = req.params.id;
-      const { item, description, completed } = req.body;
+      const { item, completed } = req.body;
       const data = {
         item,
         description,
