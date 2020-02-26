@@ -3,22 +3,34 @@ import todoValidation from "../Models/Todo";
 export default class TodoController {
   static async addTodo(req, res) {
     try {
-      const { item, description, completed } = req.body;
-      const data = {
-        item,
-        description,
-        completed
-      };
+      // const { item, description, completed } = req.body;
+      let item = req.body.item;
+      let description = req.body.description;
+      let completed = req.body.completed;
+      // const data = {
+      //   item,
+      //   description,
+      //   completed
+      // };
       const { error } = todoValidation(req.body);
       if (error) {
         return res.status(400).send(error.details[0].message);
       }
-      const addTodoItem = "INSERT INTO todo SET ?";
-      const result = await dbConnection.query(addTodoItem, data);
+      const addTodoItem =
+        "INSERT INTO todo (item, description, completed) VALUES ('" +
+        item +
+        "', '" +
+        description +
+        "', '" +
+        completed +
+        "')";
+      const result = await dbConnection.query(addTodoItem);
+      console.log("result", result);
       if (result) {
         res.status(201).json({
           status: "success",
-          message: "Todo added successfully"
+          message: "Todo added successfully",
+          result: result.affectedRows
         });
       } else {
         res.status(404).json({
